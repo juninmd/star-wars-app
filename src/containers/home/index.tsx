@@ -1,6 +1,6 @@
 import { Card, Layout, Text } from '@ui-kitten/components';
-import { Image, ScrollView, StyleSheet } from 'react-native';
 import React, { Component, } from 'react';
+import { ScrollView, StyleSheet } from 'react-native';
 import { inject, observer } from 'mobx-react';
 
 import HomeStore from '../../stores/home.store';
@@ -33,7 +33,6 @@ export default class Home extends Component<Props> {
         <ScrollView>
           {films.map((film, index) => (
             <Card onPress={() => navigateScreen(film.id)} key={index}>
-              <Image source={{ uri: film.photo }} style={{ width: 100, height: 100 }} />
               <Text style={styles.title}>{film.title}</Text>
               <Text>Episode {film.episode_id.toString()}</Text>
             </Card>))

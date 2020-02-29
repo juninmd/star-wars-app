@@ -43,10 +43,10 @@ export default class Film extends Component<Props> {
             </Card>
           }
 
-          {film && film.characters && <Text>Personagens</Text>}
+          {film && film.characters && <Card><Text>Personagens</Text></Card>}
 
-          {film && film.characters && film.characters.map((character) => (
-            <Card status='success'>
+          {film && film.characters && film.characters.map((character, k) => (
+            <Card key={k} status='success'>
               <Image source={{ uri: character.photo }} style={{ width: 100, height: 100 }} />
               <Text>{character.name}</Text>
               <Text>Gender: {character.gender}</Text>

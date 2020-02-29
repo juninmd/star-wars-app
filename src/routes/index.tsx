@@ -24,7 +24,7 @@ function Routes() {
           }
         }} name={ROUTES_NAMES.Home} component={Home} />
         <Stack.Screen options={{
-          headerTitle: 'Detalhe do Filme',
+          headerTitle: 'Detail of Movie',
           headerTintColor: '#ffffff',
           headerStyle: {
             backgroundColor: 'black',
