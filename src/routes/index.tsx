@@ -1,25 +1,38 @@
 import * as React from 'react';
 
+import Film from '../containers/film/film';
 import Home from '../containers/home';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
-function Routes() {
-    return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen options={{
-                    headerTitle: 'Star Wars',
-                    headerTintColor: '#ffffff',
-                    headerStyle: {
-                        backgroundColor: 'black',
-                    }
-                }} name="Home" component={Home} />
-            </Stack.Navigator>
-        </NavigationContainer>
-
-    );
+export enum ROUTES_NAMES {
+  Home = "Home",
+  Film = "Film"
 }
+
+function Routes() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName={ROUTES_NAMES.Home}>
+        <Stack.Screen options={{
+          headerTitle: 'Star Wars',
+          headerTintColor: '#ffffff',
+          headerStyle: {
+            backgroundColor: 'black',
+          }
+        }} name={ROUTES_NAMES.Home} component={Home} />
+        <Stack.Screen options={{
+          headerTitle: 'Detalhe do Filme',
+          headerTintColor: '#ffffff',
+          headerStyle: {
+            backgroundColor: 'black',
+          }
+        }} name={ROUTES_NAMES.Film} component={Film} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
 export default Routes;

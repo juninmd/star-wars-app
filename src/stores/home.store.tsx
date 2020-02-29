@@ -1,12 +1,13 @@
 import * as starWarsApi from '../apis/star-wars.api';
 
-import { Film, FilmById } from '../interface/star-wars.interface';
 import { action, observable } from 'mobx';
+
+import { Film } from '../interface/star-wars.interface';
 
 export default class HomeStore {
 
   @observable films: Film[] = [];
-  @observable film: FilmById | any = {};
+  @observable film: Film | any = {};
 
   @action getFilms = async () => {
     try {
@@ -19,10 +20,11 @@ export default class HomeStore {
 
   @action getFilmById = async (id: number) => {
     try {
+      this.film = {};
       const { data: film } = await starWarsApi.getFilmById(id);
       this.film = film;
     } catch (error) {
-      this.film = [];
+      this.film = {};
     }
   }
 

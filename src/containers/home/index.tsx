@@ -1,12 +1,14 @@
 import { Card, Layout, Text } from '@ui-kitten/components';
+import { Image, ScrollView, StyleSheet } from 'react-native';
 import React, { Component, } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
 import { inject, observer } from 'mobx-react';
 
 import HomeStore from '../../stores/home.store';
+import { ROUTES_NAMES } from '../../routes';
 
 interface Props {
-  homeStore: HomeStore
+  homeStore: HomeStore,
+  navigation: any;
 }
 
 @inject('homeStore')
@@ -20,11 +22,18 @@ export default class Home extends Component<Props> {
 
   render() {
     const { films } = this.props.homeStore;
+
+    const navigateScreen = (id: number) => {
+      const { navigate } = this.props.navigation;
+      navigate(ROUTES_NAMES.Film, { id });
+    }
+
     return (
       <Layout style={{ flex: 1, backgroundColor: 'black' }}>
         <ScrollView>
           {films.map((film, index) => (
-            <Card key={index}>
+            <Card onPress={() => navigateScreen(film.id)} key={index}>
+              <Image source={{ uri: film.photo }} style={{ width: 100, height: 100 }} />
               <Text style={styles.title}>{film.title}</Text>
               <Text>Episode {film.episode_id.toString()}</Text>
             </Card>))
