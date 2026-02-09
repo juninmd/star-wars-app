@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 
-const baseURL = 'https://star-wars-api-unifacef.herokuapp.com';
+const baseURL = API_BASE_URL;
 
 export const getFilms = async () => {
   return axios.request({ baseURL, url: 'films' })

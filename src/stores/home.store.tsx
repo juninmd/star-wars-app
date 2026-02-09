@@ -1,30 +1,52 @@
 import * as starWarsApi from '../apis/star-wars.api';
 
-import { action, observable } from 'mobx';
+import { action, observable, runInAction } from 'mobx';
 
 import { Film } from '../interface/star-wars.interface';
 
 export default class HomeStore {
 
   @observable films: Film[] = [];
-  @observable film: Film | any = {};
+  @observable film: Film | null = null;
+  @observable loading: boolean = false;
+  @observable error: string | null = null;
 
   @action getFilms = async () => {
+    this.loading = true;
+    this.error = null;
     try {
       const { data: films } = await starWarsApi.getFilms();
-      this.films = films;
+      runInAction(() => {
+        this.films = films;
+        this.loading = false;
+      });
     } catch (error) {
-      this.films = [];
+      runInAction(() => {
+        this.films = [];
+        this.error = 'Failed to fetch films';
+        this.loading = false;
+      });
+      console.error(error);
     }
   }
 
   @action getFilmById = async (id: number) => {
+    this.loading = true;
+    this.error = null;
+    this.film = null;
     try {
-      this.film = {};
       const { data: film } = await starWarsApi.getFilmById(id);
-      this.film = film;
+      runInAction(() => {
+        this.film = film;
+        this.loading = false;
+      });
     } catch (error) {
-      this.film = {};
+      runInAction(() => {
+        this.film = null;
+        this.error = 'Failed to fetch film details';
+        this.loading = false;
+      });
+      console.error(error);
     }
   }
 
