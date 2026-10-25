@@ -15,8 +15,12 @@ jest.mock('react-native-reanimated', () => {
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
 
 // Mock react-dom because mobx-react tries to import it
-jest.mock('react-dom', () => ({
-  render: jest.fn(),
-  unmountComponentAtNode: jest.fn(),
-  findDOMNode: jest.fn(),
-}), { virtual: true });
+jest.mock(
+  'react-dom',
+  () => ({
+    render: jest.fn(),
+    unmountComponentAtNode: jest.fn(),
+    findDOMNode: jest.fn(),
+  }),
+  {virtual: true},
+);
